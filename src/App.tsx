@@ -9,7 +9,7 @@ const AppLayout = () => {
   useEffect(() => {
     console.log(location);
   }, [location]);
-  
+
   return (
     <div>
       <ToastContainer position='bottom-right' />
@@ -30,6 +30,7 @@ const router = createBrowserRouter(
     <Route element={<AppLayout />}>
       <Route index path="" element={<Navigate to={navigationPaths.routePaths.user} />} />
       <Route path={navigationPaths.routePaths.user} element={<Suspense fallback={<></>}><User /></Suspense>} handle={{ crumb: () => "User" }} >
+        <Route index path="" element={<Navigate to={navigationPaths.routePaths.auth} />} />
         <Route path={navigationPaths.routePaths.auth} element={<Suspense fallback={<></>}><Auth /></Suspense>} handle={{ crumb: () => "Auth" }} >
           <Route index path="" element={<Navigate to={navigationPaths.routePaths.login} />} />
           <Route path={navigationPaths.routePaths.login} element={<Suspense fallback={<></>}><Login /></Suspense>} handle={{ crumb: () => "Login" }} />
