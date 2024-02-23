@@ -18,6 +18,7 @@ const AppLayout = () => {
   );
 };
 
+
 const Login = lazy(() => import('./pages/auth/login'));
 const Admin = lazy(() => import('./layout/admin.layout'));
 const User = lazy(() => import('./layout/user.layout'));
