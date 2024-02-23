@@ -1,9 +1,9 @@
 const routePaths = {
-    admin: '/admin',
-    user: '/user',
-    auth: '/user/auth',
-    login: '/user/auth/login',
-    dashboard: '/admin/dashboard',
+    admin: '/react-vite/admin',
+    user: '/react-vite/user',
+    auth: '/react-vite/user/auth',
+    login: '/react-vite/user/auth/login',
+    dashboard: '/react-vite/admin/dashboard',
 }
 
 const navigationPaths = {

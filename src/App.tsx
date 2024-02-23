@@ -27,7 +27,7 @@ const Dashboard = lazy(() => import('./pages/dashboard'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<AppLayout />}>
+    <Route path='/react-vite' element={<AppLayout />}>
       <Route index path="" element={<Navigate to={navigationPaths.routePaths.user} />} />
       <Route path={navigationPaths.routePaths.user} element={<Suspense fallback={<></>}><User /></Suspense>} handle={{ crumb: () => "User" }} >
         <Route index path="" element={<Navigate to={navigationPaths.routePaths.auth} />} />

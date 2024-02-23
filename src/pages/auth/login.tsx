@@ -2,8 +2,8 @@ import { KeyOutlined, UserOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 
 function Login() {
-  const logo = '../../../src/assets/images/logo.svg';
-  const poweredlogo = '../../../src/assets/images/msrcosmos_logo.svg';
+  const logo = 'src/assets/images/logo.svg';
+  const poweredlogo = 'src/assets/images/msrcosmos_logo.svg';
   return (
     <>
       <div className="flex min-h-full flex-col justify-center sm:p-0 md:p-4 lg:p-12 xl:p-16 2xl:p-32">
