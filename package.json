@@ -20,7 +20,7 @@
     "react-router-dom": "^6.22.1",
     "react-toastify": "^10.0.4"
   },
-  "homepage": "https://mungaraharikrishna.github.io",
+  "homepage": "https://mungaraharikrishna.github.io/react-vite",
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.11.20",
