@@ -1,16 +1,18 @@
-import { DashboardOutlined, HomeOutlined, KeyOutlined, LeftOutlined, LogoutOutlined, RightOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, MenuProps, Space, theme } from "antd";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { DashboardOutlined, KeyOutlined, LeftOutlined, LogoutOutlined, RightOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Button, Dropdown, Layout, Menu, MenuProps, Space, theme } from "antd";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Sider from "antd/es/layout/Sider";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 import logo from "../assets/images/logo.svg";
 import NavService from "../services/nav.service";
+import Breadcrumbs from "../components/breadcrumbs";
 
 function AdminLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     {
@@ -22,7 +24,7 @@ function AdminLayout() {
     {
       key: NavService.routePaths.users,
       path: NavService.routePaths.users,
-      label: "Users",
+      label: "Manage Users",
       icon: <UserOutlined />,
     },
   ].map((item) => {
@@ -34,15 +36,6 @@ function AdminLayout() {
       icon: item.icon,
     };
   });
-
-  const breadcrumbItem = [
-    {
-      title: <NavLink to={NavService.routePaths.dashboard}><HomeOutlined /></NavLink>
-    },
-    {
-      title: "Dashboard",
-    },
-  ]
 
   const items: MenuProps['items'] = [
     {
@@ -64,7 +57,7 @@ function AdminLayout() {
       icon: <LogoutOutlined />,
       onClick: (event: any) => {
         console.log(event)
-
+        navigate(NavService.routePaths.login);
       }
     },
   ];
@@ -85,7 +78,7 @@ function AdminLayout() {
                 <Button type="text" icon={collapsed ? <RightOutlined /> : <LeftOutlined />} onClick={() => setCollapsed(!collapsed)} />
               </div>
               <div>
-                <Breadcrumb items={breadcrumbItem} />
+                <Breadcrumbs />
               </div>
               <div className="ml-auto mr-3">
                 <Dropdown menu={{ items }} trigger={['click']} className="mt-3">

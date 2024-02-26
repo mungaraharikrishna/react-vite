@@ -41,8 +41,8 @@ const router = createBrowserRouter(
       </Route>
       <Route path={NavService.routePaths.admin} element={<Suspense fallback={<></>}><Admin /></Suspense>} handle={{ crumb: () => "Admin" }} >
         <Route path="" element={<Navigate to={NavService.routePaths.dashboard} />} />
-        <Route path={NavService.routePaths.dashboard} element={<Suspense fallback={<>...</>}><Dashboard /></Suspense>} handle={{ crumb: () => "Dashboard" }} />
-        <Route path={NavService.routePaths.users} element={<Suspense fallback={<>...</>}><Users /></Suspense>} handle={{ crumb: () => "Users" }} />
+        <Route path={NavService.routePaths.dashboard} element={<Suspense fallback={<></>}><Dashboard /></Suspense>} handle={{ crumb: () => "Dashboard" }} />
+        <Route path={NavService.routePaths.users} element={<Suspense fallback={<></>}><Users /></Suspense>} handle={{ crumb: () => "Manage Users" }} />
       </Route>
     </Route>
   )
