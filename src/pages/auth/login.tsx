@@ -2,8 +2,16 @@ import { KeyOutlined, LoginOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import logo from "../../assets/images/logo.svg";
 import poweredlogo from "../../assets/images/msrcosmos_logo.svg";
+import { useNavigate } from "react-router-dom";
+import NavService from "../../services/nav.service";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const login = () => {
+    navigate(NavService.routePaths.dashboard)
+  }
+  
   return (
     <>
       <div className="flex min-h-full flex-col justify-center sm:p-0 md:p-4 lg:p-12 xl:p-16 2xl:p-32">
@@ -27,12 +35,9 @@ function Login() {
               </div>
             </div>
             <div>
-              <Button type="primary" className="float_right" icon={<LoginOutlined />} size="large" block>
+              <Button type="primary" className="float_right" icon={<LoginOutlined />} size="large" block onClick={() => login()}>
                 Sign in
               </Button>
-              {/* <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Sign in
-              </button> */}
             </div>
           </form>
 

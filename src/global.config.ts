@@ -1,8 +1,5 @@
-// module.exports = Object.freeze({
-//     ...import.meta.env,
-// })
 const globalData = {
-    ...import.meta.env,
+    APP_NAME: 'GenAI'
 };
 
 export default globalData;

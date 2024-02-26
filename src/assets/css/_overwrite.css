@@ -22,3 +22,16 @@
     float: right !important;
     margin-inline-end: 0px !important;
 }
+
+.ant-dropdown-menu-item {
+    line-height: 1.8 !important;
+}
+
+.ant-dropdown-menu-item-icon {
+    font-size: 16px !important;
+}
+
+.ant-menu-item:has(.active) {
+    background-color: #1677ff !important;
+    color: #fff !important;
+}

@@ -1,11 +1,29 @@
 import { Col, Row } from "antd";
 import { Outlet } from "react-router-dom";
 import login_bg from "../../assets/images/login-bg.png";
+import { useEffect, useRef, useState } from "react";
+import AuthService from "../../services/auth.service";
 
 function Auth() {
+  const [isloaded, setLoaded] = useState(false);
+  const countRef = useRef(isloaded);
   const myStyle = {
     backgroundImage: `url(${login_bg})`,
   };
+
+  const checkSubdomain = () => {
+    setLoaded(true);
+    AuthService.checkSubdomain().then((res: any) => {
+      console.log(res);
+    }).catch((err: any) => {
+      console.log(err);
+    }).finally(() => {
+      setLoaded(false);
+    });
+  };
+  useEffect(() => {
+    checkSubdomain();
+  }, [countRef])
 
   return (
     <div className="min-h-screen">
