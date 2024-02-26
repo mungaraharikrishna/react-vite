@@ -31,7 +31,7 @@
     font-size: 16px !important;
 }
 
-.ant-menu-item:has(.active) {
+/* .ant-menu-item:has(.active) {
     background-color: #1677ff !important;
     color: #fff !important;
-}
+} */

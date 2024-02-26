@@ -1,6 +1,6 @@
 import { DashboardOutlined, HomeOutlined, KeyOutlined, LeftOutlined, LogoutOutlined, RightOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, MenuProps, Space, theme } from "antd";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useState } from "react";
 import Sider from "antd/es/layout/Sider";
 import { Header, Content, Footer } from "antd/es/layout/layout";
@@ -9,20 +9,18 @@ import NavService from "../services/nav.service";
 
 function AdminLayout() {
   const [collapsed, setCollapsed] = useState(false);
-  
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();
+  const location = useLocation();
 
   const navItems = [
     {
-      key: `dashboard`,
+      key: NavService.routePaths.dashboard,
       path: NavService.routePaths.dashboard,
       label: "Dashboard",
       icon: <DashboardOutlined />,
     },
     {
-      key: `users`,
+      key: NavService.routePaths.users,
       path: NavService.routePaths.users,
       label: "Users",
       icon: <UserOutlined />,
@@ -78,7 +76,7 @@ function AdminLayout() {
           <div className="demo-logo-vertical p-4">
             <img className="h-8 w-auto" src={logo} alt="GenAI" />
           </div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['']} items={navItems} />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]} items={navItems} />
         </Sider>
         <Layout>
           <Header style={{ padding: '0px', background: colorBgContainer }}>
