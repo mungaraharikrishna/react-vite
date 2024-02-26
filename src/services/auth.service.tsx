@@ -1,12 +1,12 @@
-import axios from "axios";
+import axiosInstance from "./axios-instance";
 const env = import.meta.env;
 
 const checkSubdomain = () => { 
-    return axios.get(`${env.APP_API_URL}/subdomain/validate`);
+    return axiosInstance.get(`${env.APP_API_URL}/subdomain/validate`);
 };
 
 const login = (reqObj: any) => { 
-    return axios.post('', reqObj);
+    return axiosInstance.post(`${env.APP_API_URL}/users/login`, reqObj);
 };
 
 const AuthService = {

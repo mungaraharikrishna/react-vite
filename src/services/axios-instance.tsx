@@ -1,5 +1,6 @@
 import axios from "axios";
 import utilsService from './utils.service';
+import { toast } from "react-toastify";
 
 const axiosInstance = axios.create();
 
@@ -32,6 +33,7 @@ axiosInstance.interceptors.response.use(
     }, (error) => {
         // Handle response errors here
         console.log(error)
+        toast.error(error.message);
         return Promise.reject(error);
     }
 );
