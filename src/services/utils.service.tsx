@@ -18,9 +18,14 @@ const getSubdomain = () => {
   return Cookies.get("x_subdomain");
 };
 
-const removeFromCookie = (cObj: any) => {
-  if (cObj) {
-    Object.entries(cObj).forEach(([key]) => {
+const getUsername = () => {
+  return Cookies.get("username");
+};
+
+const removeFromCookie = () => {
+  const cookieKeys: any[] = getAllCookieKeys();
+  if (cookieKeys && cookieKeys.length) {
+    cookieKeys.forEach((key) => {
       Cookies.remove(`${key}`, { path: "/" });
     });
   }
@@ -35,20 +40,65 @@ const isAdminUser = () => {
   return roles ? roles.includes("admin") : false;
 };
 
-const clearSession = (obj: any) => {
-    removeFromCookie(obj);
-    localStorage.clear();
-  }
+const clearSession = () => {
+  removeFromCookie();
+  localStorage.clear();
+}
 
-const utilsService = {
+const getAllCookieKeys = () => {
+  const cookies = document.cookie.split(';');
+  const cookieKeys: string[] = [];
+  cookies.forEach(cookie => {
+    const key = cookie.split('=')[0].trim();
+    cookieKeys.push(key);
+  });
+
+  return cookieKeys;
+}
+
+const isAuthenticated = () => {
+  return getJWTToken() ? true : false;
+}
+
+const setLocalStorage = (cObj: any) => {
+  Object.entries(cObj).forEach(([key, value]) => {
+    if (typeof value === 'object') {
+      localStorage.setItem(`${key}`, JSON.stringify(value));
+    } else {
+      localStorage.setItem(`${key}`, `${value}`);
+    }
+  });
+}
+
+const getMenus = () => {
+  const lsMenu: any = localStorage.getItem('menu')
+  const menuObj: any = lsMenu ? JSON.parse(lsMenu) : {};
+  const menus: any[] = [];
+  Object.entries(menuObj).forEach(([key, value]) => {
+    const obj: any = {
+      key: key.toLowerCase().trim().replace(/ /gi, ''),
+      label: value,
+      imgKey: key.trim().replace(/ /gi, '')
+    };
+    menus.unshift(obj);
+  })
+  return menus;
+}
+
+const UtilsService = {
   setCookies,
   getJWTToken,
   getSubdomain,
+  getUsername,
   removeFromCookie,
   getCookieByName,
   isAdminUser,
   getRoles,
   clearSession,
+  getAllCookieKeys,
+  isAuthenticated,
+  setLocalStorage,
+  getMenus
 };
 
-export default utilsService;
+export default UtilsService;

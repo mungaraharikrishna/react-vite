@@ -1,5 +1,5 @@
 import axios from "axios";
-import utilsService from './utils.service';
+import UtilsService from './utils.service';
 import { toast } from "react-toastify";
 
 const axiosInstance = axios.create();
@@ -9,12 +9,12 @@ axiosInstance.interceptors.request.use(
     (config) => {
 
         // Modify the request config here (e.g., add headers, authentication tokens)
-        const accessToken = utilsService.getJWTToken();
+        const accessToken = UtilsService.getJWTToken();
 
         // ** If token is present add it to request's Authorization Header
         if (accessToken) {
             if (config.headers) config.headers.Authorization = `Bearer ${accessToken}`;
-            if (config.headers) config.headers['x_subdomain'] = utilsService.getSubdomain();
+            if (config.headers) config.headers['x_user_name'] = UtilsService.getUsername();
         }
         return config;
     }, (error) => {
@@ -33,7 +33,11 @@ axiosInstance.interceptors.response.use(
     }, (error) => {
         // Handle response errors here
         console.log(error)
-        toast.error(error.message);
+        if (error.response && error.response.data) {
+            toast.error(error.response.data.message);
+        } else {
+            toast.error(error.message);
+        }
         return Promise.reject(error);
     }
 );

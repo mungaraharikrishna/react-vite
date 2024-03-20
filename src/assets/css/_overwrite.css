@@ -31,11 +31,11 @@
     font-size: 16px !important;
 }
 
-.input_invalid {
-    outline: 1px solid #f00 !important;
+.errorMsg {
+    color: #ff4d4f !important;
 }
-
-/* .ant-menu-item:has(.active) {
-    background-color: #1677ff !important;
-    color: #fff !important;
-} */
+.ant-menu-item-selected {
+    background-color: #fafafa21 !important;
+    box-shadow: -5px 0px 0px 0px #1677ff !important;
+    border-radius: 0px !important;
+}
