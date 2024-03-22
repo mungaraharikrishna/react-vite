@@ -38,8 +38,32 @@ function Login() {
     const cObj: any = {
       access_token: data.jwtResponse.accessToken
     }
+    let organizationList: any[] = [];
+    const organization: any = {};
+    const bussinessUnit: any = {};
+    if (data.organizationListDto && data.organizationListDto.length) {
+      organizationList = data.organizationListDto.reduce((arr: any[], val: any) => {
+        arr.push({ organizationName: val.organizationName, id: val.id, status: val.status });
+        return arr
+      }, [])
+    }
+    if (data.organizationRequestDto && Object.keys(data.organizationRequestDto).length) {
+      organization['organizationName'] = data.organizationRequestDto.organizationName;
+      organization['organizationId'] = data.organizationRequestDto.organizationId;
+    }
+    if (data.bussinessUnitListDto && data.bussinessUnitListDto.length) {
+      bussinessUnit['name'] = data.bussinessUnitListDto[0].name;
+      bussinessUnit['id'] = data.bussinessUnitListDto[0].id;
+      bussinessUnit['organizationId'] = data.bussinessUnitListDto[0].organizationIds;
+    }
     const lsObj: any = {
-      menu: data.menu
+      menu: data.menu,
+      organizationList: organizationList,
+      organization: organization,
+      roles: data.roles,
+      bussinessUnit: bussinessUnit,
+      name: `${data.firstName} ${data.lastName}`,
+      phonenumber: data.phonenumber
     }
     UtilsService.setCookies(cObj);
     UtilsService.setLocalStorage(lsObj);
@@ -98,10 +122,10 @@ function Login() {
                 <Form noValidate>
                   <div className="flex flex-col gap-4">
                     <div>
-                      <FormikControls control="input" type="email" label="Username" name="userName" placeholder="Enter userame" isshowlabel="false" isshowerrmsg="false" isdisabled="true" status={formik.touched && formik.touched.userName && formik.errors && formik.errors.userName ? 'error' : ''} />
+                      <FormikControls control="input" type="email" label="Username" name="userName" placeholder="Enter userame" isshowlabel="false" isshowerrmsg="false" isshowicon="true" isdisabled="true" status={formik.touched && formik.touched.userName && formik.errors && formik.errors.userName ? 'error' : ''} />
                     </div>
                     <div>
-                      <FormikControls control="password" type="password" label="Password" name="password" placeholder="Enter password" isshowlabel="false" isshowerrmsg="false" status={formik.touched && formik.touched.password && formik.errors && formik.errors.password ? 'error' : ''} />
+                      <FormikControls control="password" type="password" label="Password" name="password" placeholder="Enter password" isshowlabel="false" isshowerrmsg="false" isshowicon="true" status={formik.touched && formik.touched.password && formik.errors && formik.errors.password ? 'error' : ''} />
                     </div>
                     <div className="flex flex-col gap-4">
                       <Button htmlType="submit" type="primary" className="float_right" icon={<LoginOutlined />} size="large" loading={formik.isSubmitting} block>

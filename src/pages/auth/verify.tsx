@@ -43,7 +43,7 @@ function Verify({ onFormSubmit }: any) {
                         <Form noValidate>
                             <div className="flex flex-col gap-4">
                                 <div>
-                                    <FormikControls control="input" type="email" label="Username" name="userName" placeholder="Enter username" isshowlabel="false" isshowerrmsg="false" status={formik.touched && formik.touched.userName && formik.errors && formik.errors.userName ? 'error' : ''} />
+                                    <FormikControls control="input" type="email" label="Username" name="userName" placeholder="Enter username" isshowlabel="false" isshowicon="true" isshowerrmsg="false" status={formik.touched && formik.touched.userName && formik.errors && formik.errors.userName ? 'error' : ''} />
                                 </div>
                                 <div>
                                     <Button htmlType="submit" type="primary" className="float_right" icon={<ArrowRightOutlined />} size="large" block

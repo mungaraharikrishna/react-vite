@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-
+const colors = ['#7239ea', '#D9214E', '#FFC700', '#47BE7D', '#0B257B', '#E1E3EA'];
 const setCookies = (cObj: any) => {
   Object.entries(cObj).forEach(([key, value]) => {
     Cookies.set(`${key}`, `${value}`, { path: "/" });
@@ -70,6 +70,10 @@ const setLocalStorage = (cObj: any) => {
   });
 }
 
+const getValueFromLocalStorage = (key: any) => {
+  return localStorage.getItem(key)
+}
+
 const getMenus = () => {
   const lsMenu: any = localStorage.getItem('menu')
   const menuObj: any = lsMenu ? JSON.parse(lsMenu) : {};
@@ -85,6 +89,32 @@ const getMenus = () => {
   return menus;
 }
 
+const getAcronym = (fName: string, lName: string) => {
+  let acronym: string = '';
+  if (fName) {
+    acronym = fName.charAt(0);
+  }
+  if (lName) {
+    acronym = acronym + lName.charAt(0);
+  }
+  return acronym.toUpperCase();
+}
+
+const getRandomColor = (index?: number) => {
+  if (index !== undefined) {
+    return colors[index % colors.length]
+  }
+  else {
+    const random = Math.floor(Math.random() * colors.length);
+    return colors[random];
+  }
+}
+
+const getOrgId = () => {
+  const organization: any = localStorage.getItem('organization');
+  return organization ? JSON.parse(organization).organizationId : null
+}
+
 const UtilsService = {
   setCookies,
   getJWTToken,
@@ -98,7 +128,11 @@ const UtilsService = {
   getAllCookieKeys,
   isAuthenticated,
   setLocalStorage,
-  getMenus
+  getMenus,
+  getAcronym,
+  getRandomColor,
+  getValueFromLocalStorage,
+  getOrgId
 };
 
 export default UtilsService;

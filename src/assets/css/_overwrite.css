@@ -7,6 +7,14 @@
     padding: 5px !important;
 }
 
+.ant-input-lg[isshowicon="false"],
+.ant-select-lg {
+    height: 48px !important;
+}
+.ant-input-password .ant-input-lg[isshowicon="false"] {
+    height: 36px !important;
+}
+
 .ant-btn {
     line-height: 1 !important;
     border: 1px solid #3B82F6 !important;
@@ -20,6 +28,7 @@
 
 .float_right .ant-btn-icon {
     float: right !important;
+    margin-left: 10px !important;
     margin-inline-end: 0px !important;
 }
 

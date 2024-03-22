@@ -1,5 +1,5 @@
 import { KeyOutlined, UserOutlined } from "@ant-design/icons"
-import { Input } from "antd"
+import { Input, Select } from "antd"
 import { Field, ErrorMessage } from "formik"
 
 function InputElm(props: any) {
@@ -11,8 +11,7 @@ function InputElm(props: any) {
                 {(formik: any) => {
                     const { field } = formik;
                     return (
-                        <Input size="large" type={type} prefix={<UserOutlined />} placeholder={placeholder} status={status} {...field} {...rest} 
-                        disabled={rest.isdisabled === 'true'} />
+                        <Input size="large" type={type} prefix={rest.isshowicon === "true" ? <UserOutlined /> : ''} placeholder={placeholder} status={status} {...field} {...rest} disabled={rest.isdisabled === 'true'} />
                     )
                 }}
             </Field>
@@ -30,7 +29,7 @@ function Password(props: any) {
                 {(formik: any) => {
                     const { field } = formik;
                     return (
-                        <Input.Password size="large" type={type} prefix={<KeyOutlined />} placeholder={placeholder} status={status} {...field} {...rest} autoFocus />
+                        <Input.Password size="large" type={type} prefix={rest.isshowicon === "true" ? <KeyOutlined /> : ''} placeholder={placeholder} status={status} {...field} {...rest} />
                     )
                 }}
             </Field>
@@ -50,19 +49,24 @@ function TextAreaElm(props: any) {
     )
 }
 
-function Select(props: any) {
-    const { label, name, options, ...rest } = props
+function SelectElm(props: any) {
+    const { label, name, options, status, ...rest } = props
     return (
         <div>
-            <label htmlFor={name}>{label}</label>
-            <Field as="select" id={name} name={name} {...rest}>
-                {options.map((option: any) => {
+            <label htmlFor={name}>{label}</label><br />
+            <Field name={name}>
+                {(formik: any) => {
                     return (
-                        <option key={option.value} value={option.value}>
-                            {option.key}
-                        </option>
+                        <Select className="w-full" size="large" allowClear placeholder={rest.placeholder} onChange={(value) => formik.form.setFieldValue(formik.field.name, value)} status={status} {...formik} {...rest} >
+                            {options.map((val: any, index: number) => {
+                                return (
+                                    <Select.Option key={index} value={val.value}>{val.label}</Select.Option>
+                                )
+                            })}
+                        </Select>
                     )
-                })}
+                }}
+
             </Field>
             <ErrorMessage name={name} component="small" className="errorMsg" />
         </div>
@@ -133,7 +137,7 @@ const FormikElements = {
     Input: InputElm,
     Password,
     TextArea: TextAreaElm,
-    Select,
+    Select: SelectElm,
     RadioButtons,
     CheckBoxes
 }
