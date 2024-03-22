@@ -21,6 +21,10 @@
     border-radius: 6px !important;
 }
 
+.ant-modal-body .ant-btn { 
+    height: 40px !important;
+}
+
 .ant-btn-lg {
     padding: 0.75rem 1.25rem !important;
     height: 48px !important;

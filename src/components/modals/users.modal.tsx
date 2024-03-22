@@ -69,14 +69,14 @@ function UserModalPop({ isModalOpen, modalData, onModalEvent }: any) {
                                         <FormikControls control="password" type="password" label="Password" name="password" placeholder="Enter password" isshowlabel="true" isshowerrmsg="true" isshowicon="false" status={formik.touched && formik.touched.password && formik.errors && formik.errors.password ? 'error' : ''} />
                                     </div>
                                     <div className="flex justify-end gap-4">
-                                        <Button htmlType="reset" className="float_right" icon={<CloseOutlined />} size="large">
-                                            Reset
+                                        <Button className="float_right" icon={<CloseOutlined />} onClick={() => handleCancel()} size="middle">
+                                            Close
                                         </Button>
-                                        <Button htmlType="submit" type="primary" className="float_right" icon={<LoginOutlined />} size="large">
+                                        <Button htmlType="submit" type="primary" className="float_right" icon={<LoginOutlined />} size="middle">
                                             Submit
                                         </Button>
                                     </div>
-                                    {JSON.stringify(formik, null, 4)}
+                                    {/* {JSON.stringify(formik, null, 4)} */}
                                 </div>
                             </Form>
                         );

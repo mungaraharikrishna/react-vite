@@ -12,23 +12,24 @@ function Users() {
   const [modalData, setModalData] = useState(null);
   const columns: TableProps<any>['columns'] = [
     {
-      title: 'No',
-      render: (_, record, index) => <>
-        {index + 1}
-      </>,
-      width: '4%',
+      title: '#',
+      render: (_, record) => (
+        <>{data && data.indexOf(record) + 1}</>
+      ),
+      width: '3%',
     },
     {
       title: 'Name',
-      render: (_, record, index) => <>
+      render: (_, record, index) => (
         <div className="flex items-center gap-2">
           <Avatar style={{ backgroundColor: UtilsService.getRandomColor(index) }} size={'large'}>{UtilsService.getAcronym(record.firstName, record.lastName)}</Avatar>
-          <div className="flex flex-col">
-            <div>{record.name}</div>
-            <small className="text-slate-400">{record.userName}</small>
+          <div className="flex flex-col truncate text-ellipsis">
+            <div title={record.name}>{record.name}</div>
+            <small className="text-slate-400" title={record.userName}>{record.userName}</small>
           </div>
         </div>
-      </>
+      ),
+      width: '15%'
     },
     {
       title: 'Role',
@@ -46,7 +47,7 @@ function Users() {
     },
     {
       title: 'Phonenumber',
-      dataIndex: 'phonenumber'
+      dataIndex: 'phonenumber',
     },
     {
       title: 'Department(s)',
@@ -116,6 +117,8 @@ function Users() {
     },
   ];
 
+  const tableColumns = columns.map((item) => ({ ...item, ellipsis: true }));
+
   const openEditModal = (record?: any) => {
     console.log(record);
     setModalData(record);
@@ -149,7 +152,7 @@ function Users() {
       <div className="flex justify-end mb-2">
         <Button type="primary" size="large" icon={<PlusOutlined />} onClick={() => openEditModal()}>Add New</Button>
       </div>
-      <Table columns={columns} dataSource={data} rowKey={record => record.id} loading={loading} />
+      <Table columns={tableColumns} dataSource={data} rowKey={record => record.id} loading={loading} scroll={{ y: `55vh` }} />
       {isModalOpen && <UserModalPop isModalOpen={isModalOpen} modalData={modalData} onModalEvent={onModalEventFn} />}
     </>
   )
