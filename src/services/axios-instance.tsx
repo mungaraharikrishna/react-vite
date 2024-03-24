@@ -32,6 +32,9 @@ axiosInstance.interceptors.response.use(
     (response) => {
         // Modify the response data here (e.g., parse, transform)
         console.log(response)
+        if (response.data && response.data.statusCode === 400) {
+            toast.error(response.data.message);
+        }
         return response;
     }, (error) => {
         // Handle response errors here
@@ -49,7 +52,7 @@ axiosInstance.interceptors.response.use(
             return AuthService.refreshToken().then(response => {
                 console.log(response)
                 // If token refresh is successful, update the Authorization header with the new token
-                UtilsService.setCookies({'access_token': response.data.accessToken})
+                UtilsService.setCookies({'access_token': response.data.newToken})
                 // axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.accessToken;
 
                 // Resend the original request with the new token

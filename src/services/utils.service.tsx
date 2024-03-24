@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-const colors = ['#7239ea', '#D9214E', '#FFC700', '#47BE7D', '#0B257B', '#E1E3EA'];
+const colors = ['#7239ea', '#D9214E', '#FFC700', '#47BE7D', '#0B257B', '#898989'];
 const setCookies = (cObj: any) => {
   Object.entries(cObj).forEach(([key, value]) => {
     Cookies.set(`${key}`, `${value}`, { path: "/" });

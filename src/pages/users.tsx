@@ -1,15 +1,35 @@
-import { Avatar, Badge, Button, Space, Table, TableProps, Tag, Tooltip } from "antd";
+import { Avatar, Badge, Button, Popover, Space, Table, TableProps, Tag, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import UsersService from "../services/users.service";
 import UtilsService from "../services/utils.service";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import UserModalPop from "../components/modals/users.modal";
+import tree from "../assets/images/chart-tree.svg"
 
 function Users() {
   const [data, setData]: any = useState();
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
+
+  const deptContent = (departmentDto: any) => {
+    return (
+      <>
+        <div className="grid grid-cols-3 w-full gap-3">
+          {
+            departmentDto && departmentDto.map((department: any, index: number) => {
+              return (
+                <div key={index}>
+                  <Tag className="w-full" style={{padding: '5px', textAlign: 'center'}} color="processing">{department.departmentName}</Tag>
+                </div>
+              )
+            })
+          }
+        </div>
+      </>
+    )
+  }
+
   const columns: TableProps<any>['columns'] = [
     {
       title: '#',
@@ -17,6 +37,7 @@ function Users() {
         <>{data && data.indexOf(record) + 1}</>
       ),
       width: '3%',
+      fixed: 'left',
     },
     {
       title: 'Name',
@@ -29,7 +50,8 @@ function Users() {
           </div>
         </div>
       ),
-      width: '15%'
+      width: '15%',
+      fixed: 'left',
     },
     {
       title: 'Role',
@@ -53,16 +75,13 @@ function Users() {
       title: 'Department(s)',
       render: (_, { departmentDto }) => (
         <>
-          {departmentDto && departmentDto.map((department: any, index: number) => {
-            return (
-              <Space className="flex gap-2 mb-2" key={index + 1}>
-                <Tag color="processing">{department.departmentName}</Tag>
-              </Space>
-            )
-          })}
+          {departmentDto && <div className="flex justify-center">
+            <Popover content={deptContent(departmentDto)} title="Department(s)">
+              <img src={tree} style={{ height: '30px' }} />
+            </Popover>
+          </div>}
         </>
       ),
-      width: '10%',
     },
     {
       title: 'Bussiness Unit',
@@ -91,7 +110,7 @@ function Users() {
       render: (_, { isPrimary }) => (
         <>
           <Tooltip title={isPrimary ? 'Primary' : 'No Primary'}>
-            {isPrimary ? <Badge status="success" /> : <Badge status="default" />}
+            {isPrimary ? <Badge size="default" status="success" /> : <Badge status="default" />}
           </Tooltip>
         </>
       )
@@ -114,6 +133,7 @@ function Users() {
           </Tooltip>
         </Space>
       ),
+      fixed: 'right'
     },
   ];
 
@@ -152,7 +172,7 @@ function Users() {
       <div className="flex justify-end mb-2">
         <Button type="primary" size="large" icon={<PlusOutlined />} onClick={() => openEditModal()}>Add New</Button>
       </div>
-      <Table columns={tableColumns} dataSource={data} rowKey={record => record.id} loading={loading} scroll={{ y: `55vh` }} />
+      <Table columns={tableColumns} dataSource={data} rowKey={record => record.id} loading={loading} scroll={{ y: `55vh`, x: 1500 }} />
       {isModalOpen && <UserModalPop isModalOpen={isModalOpen} modalData={modalData} onModalEvent={onModalEventFn} />}
     </>
   )

@@ -4,6 +4,8 @@ import { Navigate, Outlet, Route, RouterProvider, createBrowserRouter, createRou
 import NavService from './services/nav.service';
 import { ToastContainer } from 'react-toastify';
 import globalData from './global.config';
+import { CustomerServiceOutlined, CommentOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
 
 const AppLayout = () => {
   const location = useLocation();
@@ -16,6 +18,15 @@ const AppLayout = () => {
     <div>
       <ToastContainer position='bottom-right' />
       <Outlet />
+      <FloatButton.Group
+        trigger="hover"
+        type="primary"
+        style={{ right: 25 }}
+        icon={<CustomerServiceOutlined />}
+      >
+        <FloatButton />
+        <FloatButton icon={<CommentOutlined />} />
+      </FloatButton.Group>
     </div>
   );
 };
